@@ -6,9 +6,9 @@ services:
     hostname: localhost
     restart: always
     ports:
-      - "8082:80"
-      - "8081:443"
-      - "8022:22"
+      - "9082:80"
+      - "9081:443"
+      - "9022:22"
     volumes:
       - tuleap-data:/data
     depends_on:

@@ -88,8 +88,8 @@ docker-compose -f tuleap-docker-compose.yml up -d
 **Esperar 8-12 minutos** para que se inicialice completamente (la primera vez tarda más)
 
 **Acceso:** 
-- HTTP: http://localhost:8082
-- HTTPS: https://localhost:8081 (puede mostrar advertencia de certificado)
+- HTTP: http://localhost:9082
+- HTTPS: https://localhost:9081 (puede mostrar advertencia de certificado)
 - **Nota**: Tuleap incluye MySQL 8.0 y requiere más tiempo para configurar la base de datos
 - **Credenciales por defecto**: Se configuran automáticamente durante la primera ejecución
 
@@ -153,7 +153,7 @@ docker-compose -f tuleap-docker-compose.yml down
 2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
 3. Revisa los logs: `docker-compose -f tuleap-docker-compose.yml logs -f`
 4. Si ves errores de base de datos, espera más tiempo - Tuleap está configurando MySQL 8.0
-5. Asegúrate de que los puertos 8081, 8082 y 8022 no estén ocupados
+5. Asegúrate de que los puertos 9081, 9082 y 9022 no estén ocupados
 6. **Nota**: Tuleap es la aplicación más compleja, incluye MySQL y requiere más tiempo para configurar todo
 
 ### **Si una aplicación no carga:**
@@ -185,6 +185,6 @@ docker-compose -f tuleap-docker-compose.yml down
 - **OpenProject**: http://localhost:8080
 - **Taiga**: http://localhost:9002  
 - **Tuleap**: 
-  - HTTP: http://localhost:8082
-  - HTTPS: https://localhost:8081 (puede mostrar advertencia de certificado)
-  - SSH: Puerto 8022 (para Git)
+  - HTTP: http://localhost:9082
+  - HTTPS: https://localhost:9081 (puede mostrar advertencia de certificado)
+  - SSH: Puerto 9022 (para Git)
