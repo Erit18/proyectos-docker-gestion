@@ -75,7 +75,7 @@ docker-compose -f taiga-docker-compose.yml up -d
 
 **Esperar 5-8 minutos** para que se inicialice completamente (la primera vez tarda más)
 
-**Acceso:** Abrir tu navegador y ir a: http://localhost:9002
+**Acceso:** Abrir tu navegador y ir a: http://localhost:9000
 - **IMPORTANTE**: La primera vez que accedas, Taiga puede tardar en cargar mientras termina la configuración inicial
 - **Nota**: Taiga usa backend y frontend separados con PostgreSQL, por eso tarda más en configurarse
 
@@ -225,8 +225,8 @@ docker-compose -f tuleap-docker-compose.yml ps
 2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
 3. Revisa los logs: `docker-compose -f taiga-docker-compose.yml logs -f`
 4. Si ves errores de base de datos, espera más tiempo - Taiga está configurando PostgreSQL
-5. Asegúrate de que los puertos 9001 y 9002 no estén ocupados
-6. **Nota**: Taiga usa backend (puerto 9001) y frontend (puerto 9002) separados con PostgreSQL
+5. Asegúrate de que el puerto 9000 no esté ocupado
+6. **Nota**: Taiga usa backend y frontend integrados en el puerto 9000 con PostgreSQL
 
 ### **Si Tuleap no carga:**
 1. **Primera vez**: Espera al menos 12-15 minutos para la inicialización completa
@@ -264,7 +264,7 @@ docker-compose -f tuleap-docker-compose.yml ps
 ## URLs de Acceso Resumen
 
 - **OpenProject**: http://localhost:8080
-- **Taiga**: http://localhost:9002  
+- **Taiga**: http://localhost:9000
 - **Tuleap**: 
   - HTTP: http://localhost:9082
   - HTTPS: https://localhost:9081 (puede mostrar advertencia de certificado)
