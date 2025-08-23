@@ -17,14 +17,14 @@ Este proyecto contiene configuraciones Docker Compose para tres herramientas de 
 ## 📥 **Cómo obtener este proyecto**
 
 ### **Opción 1: Desde GitHub (Recomendado)**
-1. Ve al repositorio: `https://github.com/TU_USUARIO/proyectos-docker-gestion`
+1. Ve al repositorio: `https://github.com/Erit18/proyectos-docker-gestion.git`
 2. Haz clic en el botón verde "Code"
 3. Selecciona "Download ZIP"
 4. Extrae el archivo en tu PC
 
 ### **Opción 2: Con Git**
 ```bash
-git clone https://github.com/TU_USUARIO/proyectos-docker-gestion.git
+git clone https://github.com/Erit18/proyectos-docker-gestion.git
 cd proyectos-docker-gestion
 ```
 
