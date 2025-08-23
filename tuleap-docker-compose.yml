@@ -1,40 +1,36 @@
 version: '3.8'
 
 services:
-  tuleap-db:
-    image: mysql:8.0
-    container_name: tuleap-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: tuleap
-      MYSQL_USER: tuleap
-      MYSQL_PASSWORD: tuleap123
-    volumes:
-      - tuleap-mysql-data:/var/lib/mysql
-    restart: unless-stopped
-
   tuleap:
-    image: tuleap/tuleap-aio:latest
-    container_name: tuleap-app
-    depends_on:
-      - tuleap-db
-    environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DB_HOST: tuleap-db
-      MYSQL_DB_PORT: 3306
-      MYSQL_DB_NAME: tuleap
-      MYSQL_DB_USER: tuleap
-      MYSQL_DB_PASS: tuleap123
-      TULEAP_FQDN: localhost
+    image: tuleap/tuleap-community-edition
+    hostname: localhost
+    restart: always
     ports:
-      - "8081:443"
       - "8082:80"
+      - "8081:443"
+      - "8022:22"
     volumes:
       - tuleap-data:/data
-      - tuleap-etc:/etc/tuleap
+    depends_on:
+      - db
+    environment:
+      - TULEAP_FQDN=localhost
+      - TULEAP_SYS_DBHOST=db
+      - TULEAP_SYS_DBPASSWD=tuleap123
+      - SITE_ADMINISTRATOR_PASSWORD=admin123
+      - DB_ADMIN_USER=root
+      - DB_ADMIN_PASSWORD=root123
+
+  # Base de datos MySQL para Tuleap
+  db:
+    image: mysql:8.0
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--sql-mode=NO_ENGINE_SUBSTITUTION"]
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+    volumes:
+      - db-data:/var/lib/mysql
     restart: unless-stopped
 
 volumes:
-  tuleap-mysql-data:
   tuleap-data:
-  tuleap-etc:
+  db-data:

@@ -73,10 +73,11 @@ docker-compose -f openproject-docker-compose.yml up -d
 docker-compose -f taiga-docker-compose.yml up -d
 ```
 
-**Esperar 3-4 minutos** para que se inicialice completamente
+**Esperar 5-8 minutos** para que se inicialice completamente (la primera vez tarda más)
 
 **Acceso:** Abrir tu navegador y ir a: http://localhost:9001
-- La primera vez que accedas, se te pedirá crear un usuario administrador
+- **IMPORTANTE**: La primera vez que accedas, Taiga puede tardar en cargar mientras termina la configuración inicial
+- **Nota**: Taiga incluye PostgreSQL y RabbitMQ internamente, por eso tarda más en configurarse
 
 #### **3. Tuleap**
 
@@ -84,11 +85,13 @@ docker-compose -f taiga-docker-compose.yml up -d
 docker-compose -f tuleap-docker-compose.yml up -d
 ```
 
-**Esperar 5-6 minutos** para que se inicialice completamente
+**Esperar 8-12 minutos** para que se inicialice completamente (la primera vez tarda más)
 
 **Acceso:** 
 - HTTP: http://localhost:8082
 - HTTPS: https://localhost:8081 (puede mostrar advertencia de certificado)
+- **Nota**: Tuleap incluye MySQL 8.0 y requiere más tiempo para configurar la base de datos
+- **Credenciales por defecto**: Se configuran automáticamente durante la primera ejecución
 
 ## Comandos Útiles
 
@@ -137,6 +140,22 @@ docker-compose -f tuleap-docker-compose.yml down
 4. Si ves errores de base de datos, espera más tiempo - OpenProject está configurando PostgreSQL internamente
 5. Asegúrate de que el puerto 8080 no esté ocupado
 
+### **Si Taiga no carga:**
+1. **Primera vez**: Espera al menos 8-10 minutos para la inicialización completa
+2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
+3. Revisa los logs: `docker-compose -f taiga-docker-compose.yml logs -f`
+4. Si ves errores de base de datos o RabbitMQ, espera más tiempo - Taiga está configurando todo internamente
+5. Asegúrate de que el puerto 9001 no esté ocupado
+6. **Nota**: Taiga es más complejo que OpenProject, requiere más tiempo para configurar PostgreSQL y RabbitMQ
+
+### **Si Tuleap no carga:**
+1. **Primera vez**: Espera al menos 12-15 minutos para la inicialización completa
+2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
+3. Revisa los logs: `docker-compose -f tuleap-docker-compose.yml logs -f`
+4. Si ves errores de base de datos, espera más tiempo - Tuleap está configurando MySQL 8.0
+5. Asegúrate de que los puertos 8081, 8082 y 8022 no estén ocupados
+6. **Nota**: Tuleap es la aplicación más compleja, incluye MySQL y requiere más tiempo para configurar todo
+
 ### **Si una aplicación no carga:**
 1. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
 2. Revisa los logs con `docker-compose logs`
@@ -165,4 +184,7 @@ docker-compose -f tuleap-docker-compose.yml down
 
 - **OpenProject**: http://localhost:8080
 - **Taiga**: http://localhost:9001  
-- **Tuleap**: http://localhost:8082 (HTTP) o https://localhost:8081 (HTTPS)
+- **Tuleap**: 
+  - HTTP: http://localhost:8082
+  - HTTPS: https://localhost:8081 (puede mostrar advertencia de certificado)
+  - SSH: Puerto 8022 (para Git)
