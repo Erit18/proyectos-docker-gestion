@@ -2,29 +2,49 @@ version: '3.8'
 
 services:
   taiga:
-    image: taigaio/taiga:latest
-    container_name: taiga-app
+    image: taigaio/taiga-back:latest
+    container_name: taiga-backend
     ports:
-      - "9001:80"
+      - "9001:8001"
     environment:
-      TAIGA_SCHEME: http
-      TAIGA_DOMAIN: localhost:9001
-      SUBPATH: ""
-      WEBSOCKETS_SCHEME: ws
-      SECRET_KEY: "taiga-secret-key-cambiala-por-una-segura"
-      POSTGRES_USER: taiga
-      POSTGRES_PASSWORD: taiga
-      POSTGRES_DB: taiga
-      RABBITMQ_USER: taiga
-      RABBITMQ_PASS: taiga
-      RABBITMQ_VHOST: taiga
-      RABBITMQ_ERLANG_COOKIE: secret-erlang-cookie
-      EMAIL_BACKEND: console
-      ATTACHMENTS_MAX_AGE: 360
-      ENABLE_TELEMETRY: False
+      TAIGA_DB_HOST: db
+      TAIGA_DB_NAME: taiga
+      TAIGA_DB_USER: taiga
+      TAIGA_DB_PASS: taiga123
+      TAIGA_SECRET_KEY: "taiga-secret-key-cambiala-por-una-segura"
+      TAIGA_SITES_SCHEME: http
+      TAIGA_SITES_DOMAIN: localhost:9001
     volumes:
-      - taiga-data:/var/lib/taiga
+      - taiga-back-media:/taiga-back/media
+      - taiga-back-static:/taiga-back/static
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  taiga-front:
+    image: taigaio/taiga-front:latest
+    container_name: taiga-frontend
+    ports:
+      - "9002:80"
+    environment:
+      TAIGA_API_URL: http://localhost:9001/api/v1/
+      TAIGA_EVENTS_URL: http://localhost:9001/events/
+    depends_on:
+      - taiga
+    restart: unless-stopped
+
+  db:
+    image: postgres:13
+    container_name: taiga-postgres
+    environment:
+      POSTGRES_DB: taiga
+      POSTGRES_USER: taiga
+      POSTGRES_PASSWORD: taiga123
+    volumes:
+      - taiga-postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
-  taiga-data:
+  taiga-back-media:
+  taiga-back-static:
+  taiga-postgres-data:
