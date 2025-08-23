@@ -75,9 +75,20 @@ docker-compose up -d
 
 **Esperar 5-8 minutos** para que se inicialice completamente (la primera vez tarda más)
 
+**IMPORTANTE - Primera vez:**
+1. **Aplicar migraciones de base de datos:**
+```bash
+docker-compose -f docker-compose.yml -f docker-compose-inits.yml run --rm taiga-manage migrate
+```
+
+2. **Crear superusuario:**
+```bash
+docker-compose -f docker-compose.yml -f docker-compose-inits.yml run --rm taiga-manage createsuperuser
+```
+
 **Acceso:** Abrir tu navegador y ir a: http://localhost:9000
 - **IMPORTANTE**: La primera vez que accedas, Taiga puede tardar en cargar mientras termina la configuración inicial
-- **Nota**: Taiga usa backend y frontend separados con PostgreSQL, por eso tarda más en configurarse
+- **Nota**: Taiga usa backend y frontend integrados en el puerto 9000 con PostgreSQL
 
 #### **3. Tuleap**
 
@@ -167,6 +178,7 @@ docker-compose -f tuleap-docker-compose.yml down -v
 - **Necesitarás crear usuarios de nuevo**
 - **Todos los proyectos se perderán**
 - **Configuraciones volverán a valores por defecto**
+- **Para Taiga**: Necesitarás ejecutar las migraciones y crear superusuario nuevamente
 
 ## Comandos Útiles
 
@@ -227,6 +239,7 @@ docker-compose -f tuleap-docker-compose.yml ps
 4. Si ves errores de base de datos, espera más tiempo - Taiga está configurando PostgreSQL
 5. Asegúrate de que el puerto 9000 no esté ocupado
 6. **Nota**: Taiga usa backend y frontend integrados en el puerto 9000 con PostgreSQL
+7. **Si es la primera vez**: Asegúrate de haber ejecutado las migraciones y creado el superusuario
 
 ### **Si Tuleap no carga:**
 1. **Primera vez**: Espera al menos 12-15 minutos para la inicialización completa
