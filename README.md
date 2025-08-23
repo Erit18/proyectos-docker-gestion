@@ -25,10 +25,7 @@ Este proyecto contiene configuraciones Docker Compose para tres herramientas de 
 ### **Opción 2: Con Git**
 ```bash
 git clone https://github.com/Erit18/proyectos-docker-gestion.git
-cd proyectos-docker-gestion
 ```
-
-**Reemplaza `TU_USUARIO` con el nombre de usuario de GitHub de tu compañero**
 
 ## Instrucciones de Instalación
 
