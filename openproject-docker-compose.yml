@@ -1,38 +1,21 @@
 version: '3.8'
 
 services:
-  openproject-db:
-    image: postgres:13
-    container_name: openproject-postgres
-    environment:
-      POSTGRES_DB: openproject
-      POSTGRES_USER: openproject
-      POSTGRES_PASSWORD: openproject123
-    volumes:
-      - openproject-postgres-data:/var/lib/postgresql/data
-    restart: unless-stopped
-
   openproject:
-    image: openproject/community:latest
+    image: openproject/openproject:16
     container_name: openproject-app
-    depends_on:
-      - openproject-db
-    environment:
-      OPENPROJECT_DB_HOST: openproject-db
-      OPENPROJECT_DB_PORT: 5432
-      OPENPROJECT_DB_NAME: openproject
-      OPENPROJECT_DB_USER: openproject
-      OPENPROJECT_DB_PASS: openproject123
-      OPENPROJECT_SECRET_KEY_BASE: "your-secret-key-here"
-      OPENPROJECT_HOST__NAME: localhost:8080
     ports:
-      - "8080:8080"
+      - "8080:80"
+    environment:
+      OPENPROJECT_SECRET_KEY_BASE: "tu-clave-secreta-aqui-cambiala-por-una-segura"
+      OPENPROJECT_HOST__NAME: localhost:8080
+      OPENPROJECT_HTTPS: false
+      OPENPROJECT_DEFAULT__LANGUAGE: es
     volumes:
+      - openproject-data:/var/openproject/pgdata
       - openproject-assets:/var/openproject/assets
-      - openproject-logs:/var/openproject/logs
     restart: unless-stopped
 
 volumes:
-  openproject-postgres-data:
+  openproject-data:
   openproject-assets:
-  openproject-logs:

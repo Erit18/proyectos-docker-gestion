@@ -60,11 +60,12 @@ cd "ruta\a\tu\carpeta\proyectos_docker"
 docker-compose -f openproject-docker-compose.yml up -d
 ```
 
-**Esperar 2-3 minutos** para que se inicialice completamente
+**Esperar 5-10 minutos** para que se inicialice completamente (la primera vez tarda más)
 
 **Acceso:** Abrir tu navegador y ir a: http://localhost:8080
 - Usuario por defecto: `admin`
 - Contraseña por defecto: `admin`
+- **Nota:** La primera vez que accedas, OpenProject puede tardar en cargar mientras termina la configuración inicial
 
 #### **2. Taiga**
 
@@ -128,6 +129,13 @@ docker-compose -f tuleap-docker-compose.yml down
 ```
 
 ## Solución de Problemas
+
+### **Si OpenProject no carga:**
+1. **Primera vez**: Espera al menos 10-15 minutos para la inicialización completa
+2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
+3. Revisa los logs: `docker-compose -f openproject-docker-compose.yml logs -f`
+4. Si ves errores de base de datos, espera más tiempo - OpenProject está configurando PostgreSQL internamente
+5. Asegúrate de que el puerto 8080 no esté ocupado
 
 ### **Si una aplicación no carga:**
 1. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
