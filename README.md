@@ -70,7 +70,7 @@ docker-compose -f openproject-docker-compose.yml up -d
 #### **2. Taiga**
 
 ```bash
-docker-compose up -d
+docker-compose -f taiga-docker/docker-compose.yml up -d
 ```
 
 **Esperar 5-8 minutos** para que se inicialice completamente (la primera vez tarda más)
@@ -78,12 +78,12 @@ docker-compose up -d
 **IMPORTANTE - Primera vez:**
 1. **Aplicar migraciones de base de datos:**
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose-inits.yml run --rm taiga-manage migrate
+docker-compose -f taiga-docker/docker-compose.yml -f taiga-docker/docker-compose-inits.yml run --rm taiga-manage migrate
 ```
 
 2. **Crear superusuario:**
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose-inits.yml run --rm taiga-manage createsuperuser
+docker-compose -f taiga-docker/docker-compose.yml -f taiga-docker/docker-compose-inits.yml run --rm taiga-manage createsuperuser
 ```
 
 **Acceso:** Abrir tu navegador y ir a: http://localhost:9000
@@ -120,7 +120,7 @@ docker-compose -f tuleap-docker-compose.yml up -d
 docker-compose -f openproject-docker-compose.yml down
 
 # Detener Taiga
-docker-compose down
+docker-compose -f taiga-docker/docker-compose.yml down
 
 # Detener Tuleap
 docker-compose -f tuleap-docker-compose.yml down
@@ -132,7 +132,7 @@ docker-compose -f tuleap-docker-compose.yml down
 docker-compose -f openproject-docker-compose.yml up -d
 
 # Levantar Taiga
-docker-compose up -d
+docker-compose -f taiga-docker/docker-compose.yml up -d
 
 # Levantar Tuleap
 docker-compose -f tuleap-docker-compose.yml up -d
@@ -152,7 +152,7 @@ docker-compose -f tuleap-docker-compose.yml up -d
 docker-compose -f openproject-docker-compose.yml down -v
 
 # Eliminar Taiga y TODOS sus datos
-docker-compose down -v
+docker-compose -f taiga-docker/docker-compose.yml down -v
 
 # Eliminar Tuleap y TODOS sus datos
 docker-compose -f tuleap-docker-compose.yml down -v
@@ -183,7 +183,7 @@ docker ps
 docker-compose -f openproject-docker-compose.yml logs -f
 
 # Taiga
-docker-compose logs -f
+docker-compose -f taiga-docker/docker-compose.yml logs -f
 
 # Tuleap
 docker-compose -f tuleap-docker-compose.yml logs -f
@@ -195,7 +195,7 @@ docker-compose -f tuleap-docker-compose.yml logs -f
 docker-compose -f openproject-docker-compose.yml restart
 
 # Taiga
-docker-compose restart
+docker-compose -f taiga-docker/docker-compose.yml restart
 
 # Tuleap
 
@@ -208,7 +208,7 @@ docker-compose -f tuleap-docker-compose.yml restart
 docker-compose -f openproject-docker-compose.yml ps
 
 # Taiga
-docker-compose ps
+docker-compose -f taiga-docker/docker-compose.yml ps
 
 # Tuleap
 docker-compose -f tuleap-docker-compose.yml ps
@@ -226,7 +226,7 @@ docker-compose -f tuleap-docker-compose.yml ps
 ### **Si Taiga no carga:**
 1. **Primera vez**: Espera al menos 8-10 minutos para la inicialización completa
 2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
-3. Revisa los logs: `docker-compose logs -f`
+3. Revisa los logs: `docker-compose -f taiga-docker/docker-compose.yml logs -f`
 4. Si ves errores de base de datos, espera más tiempo - Taiga está configurando PostgreSQL
 5. Asegúrate de que el puerto 9000 no esté ocupado
 6. **Nota**: Taiga usa backend y frontend integrados en el puerto 9000 con PostgreSQL
