@@ -93,6 +93,81 @@ docker-compose -f tuleap-docker-compose.yml up -d
 - **Nota**: Tuleap incluye MySQL 8.0 y requiere más tiempo para configurar la base de datos
 - **Credenciales por defecto**: Se configuran automáticamente durante la primera ejecución
 
+## 🔄 **Ciclo de Vida de las Aplicaciones**
+
+### **📊 Persistencia de Datos**
+- **✅ Los datos se mantienen** entre reinicios del sistema
+- **✅ Los usuarios y proyectos creados** permanecen guardados
+- **✅ Las configuraciones** se conservan automáticamente
+- **❌ Solo se pierden los datos** si eliminas explícitamente los volúmenes
+
+### **🔄 Encendido y Apagado Diario**
+
+#### **Para APAGAR las aplicaciones:**
+```bash
+# Detener OpenProject
+docker-compose -f openproject-docker-compose.yml down
+
+# Detener Taiga
+docker-compose -f taiga-docker-compose.yml down
+
+# Detener Tuleap
+docker-compose -f tuleap-docker-compose.yml down
+
+# O detener todas de una vez
+docker-compose -f openproject-docker-compose.yml down
+docker-compose -f taiga-docker-compose.yml down
+docker-compose -f tuleap-docker-compose.yml down
+```
+
+#### **Para ENCENDER las aplicaciones:**
+```bash
+# Levantar OpenProject
+docker-compose -f openproject-docker-compose.yml up -d
+
+# Levantar Taiga
+docker-compose -f taiga-docker-compose.yml up -d
+
+# Levantar Tuleap
+docker-compose -f tuleap-docker-compose.yml up -d
+```
+
+#### **Después de encender:**
+- **Accede con las mismas credenciales** que creaste anteriormente
+- **No necesitas crear usuarios de nuevo**
+- **Todos tus proyectos y datos estarán disponibles**
+
+### **🗑️ Eliminación Completa (CUIDADO: Elimina TODOS los datos)**
+
+#### **⚠️ ADVERTENCIA: Esto eliminará PERMANENTEMENTE todos los datos**
+
+```bash
+# Eliminar OpenProject y TODOS sus datos
+docker-compose -f openproject-docker-compose.yml down -v
+
+# Eliminar Taiga y TODOS sus datos
+docker-compose -f taiga-docker-compose.yml down -v
+
+# Eliminar Tuleap y TODOS sus datos
+docker-compose -f tuleap-docker-compose.yml down -v
+
+# Eliminar TODAS las aplicaciones y sus datos
+docker-compose -f openproject-docker-compose.yml down -v
+docker-compose -f taiga-docker-compose.yml down -v
+docker-compose -f tuleap-docker-compose.yml down -v
+```
+
+#### **¿Cuándo usar eliminación completa?**
+- **Cambio de versión** de la aplicación
+- **Problemas graves** que no se resuelven con reinicio
+- **Limpieza completa** del sistema
+- **Pruebas** que requieren empezar desde cero
+
+#### **Después de eliminación completa:**
+- **Necesitarás crear usuarios de nuevo**
+- **Todos los proyectos se perderán**
+- **Configuraciones volverán a valores por defecto**
+
 ## Comandos Útiles
 
 ### **Ver si las aplicaciones están funcionando**
@@ -112,23 +187,28 @@ docker-compose -f taiga-docker-compose.yml logs -f
 docker-compose -f tuleap-docker-compose.yml logs -f
 ```
 
-### **Detener una aplicación**
+### **Reiniciar servicios (mantiene datos)**
 ```bash
 # OpenProject
-docker-compose -f openproject-docker-compose.yml down
+docker-compose -f openproject-docker-compose.yml restart
 
 # Taiga
-docker-compose -f taiga-docker-compose.yml down
+docker-compose -f taiga-docker-compose.yml restart
 
 # Tuleap
-docker-compose -f tuleap-docker-compose.yml down
+docker-compose -f tuleap-docker-compose.yml restart
 ```
 
-### **Detener todas las aplicaciones**
+### **Ver estado detallado**
 ```bash
-docker-compose -f openproject-docker-compose.yml down
-docker-compose -f taiga-docker-compose.yml down
-docker-compose -f tuleap-docker-compose.yml down
+# OpenProject
+docker-compose -f openproject-docker-compose.yml ps
+
+# Taiga
+docker-compose -f taiga-docker-compose.yml ps
+
+# Tuleap
+docker-compose -f tuleap-docker-compose.yml ps
 ```
 
 ## Solución de Problemas
@@ -176,9 +256,10 @@ docker-compose -f tuleap-docker-compose.yml down
 
 - **La primera ejecución puede tardar más tiempo** debido a la descarga de imágenes
 - Las aplicaciones se reiniciarán automáticamente si se detienen
-- Los datos se mantienen en volúmenes Docker persistentes
+- **Los datos se mantienen en volúmenes Docker persistentes** entre reinicios
 - Para desarrollo universitario, estas configuraciones son suficientes
 - **Ejecuta una aplicación a la vez** para evitar problemas de memoria
+- **Los usuarios y proyectos creados se mantienen** hasta que elimines explícitamente los volúmenes
 
 ## URLs de Acceso Resumen
 
