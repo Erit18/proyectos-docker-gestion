@@ -57,7 +57,7 @@ cd "ruta\a\tu\carpeta\proyectos_docker"
 #### **1. OpenProject (Recomendado empezar con esta)**
 
 ```bash
-docker-compose -f openproject-docker-compose.yml up -d
+docker-compose -f openproject-docker/openproject-docker-compose.yml up -d
 ```
 
 **Esperar 5-10 minutos** para que se inicialice completamente (la primera vez tarda más)
@@ -117,7 +117,7 @@ docker-compose -f tuleap-docker-compose.yml up -d
 #### **Para APAGAR las aplicaciones:**
 ```bash
 # Detener OpenProject
-docker-compose -f openproject-docker-compose.yml down
+docker-compose -f openproject-docker/openproject-docker-compose.yml down
 
 # Detener Taiga
 docker-compose -f taiga-docker/docker-compose.yml down
@@ -129,7 +129,7 @@ docker-compose -f tuleap-docker-compose.yml down
 #### **Para ENCENDER las aplicaciones:**
 ```bash
 # Levantar OpenProject
-docker-compose -f openproject-docker-compose.yml up -d
+docker-compose -f openproject-docker/openproject-docker-compose.yml up -d
 
 # Levantar Taiga
 docker-compose -f taiga-docker/docker-compose.yml up -d
@@ -149,7 +149,7 @@ docker-compose -f tuleap-docker-compose.yml up -d
 
 ```bash
 # Eliminar OpenProject y TODOS sus datos
-docker-compose -f openproject-docker-compose.yml down -v
+docker-compose -f openproject-docker/openproject-docker-compose.yml down -v
 
 # Eliminar Taiga y TODOS sus datos
 docker-compose -f taiga-docker/docker-compose.yml down -v
@@ -180,7 +180,7 @@ docker ps
 ### **Ver logs de una aplicación específica**
 ```bash
 # OpenProject
-docker-compose -f openproject-docker-compose.yml logs -f
+docker-compose -f openproject-docker/openproject-docker-compose.yml logs -f
 
 # Taiga
 docker-compose -f taiga-docker/docker-compose.yml logs -f
@@ -192,7 +192,7 @@ docker-compose -f tuleap-docker-compose.yml logs -f
 ### **Reiniciar servicios (mantiene datos)**
 ```bash
 # OpenProject
-docker-compose -f openproject-docker-compose.yml restart
+docker-compose -f openproject-docker/openproject-docker-compose.yml restart
 
 # Taiga
 docker-compose -f taiga-docker/docker-compose.yml restart
@@ -205,7 +205,7 @@ docker-compose -f tuleap-docker-compose.yml restart
 ### **Ver estado detallado**
 ```bash
 # OpenProject
-docker-compose -f openproject-docker-compose.yml ps
+docker-compose -f openproject-docker/openproject-docker-compose.yml ps
 
 # Taiga
 docker-compose -f taiga-docker/docker-compose.yml ps
@@ -219,7 +219,7 @@ docker-compose -f tuleap-docker-compose.yml ps
 ### **Si OpenProject no carga:**
 1. **Primera vez**: Espera al menos 10-15 minutos para la inicialización completa
 2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
-3. Revisa los logs: `docker-compose -f openproject-docker-compose.yml logs -f`
+3. Revisa los logs: `docker-compose -f openproject-docker/openproject-docker-compose.yml logs -f`
 4. Si ves errores de base de datos, espera más tiempo - OpenProject está configurando PostgreSQL internamente
 5. Asegúrate de que el puerto 8080 no esté ocupado
 
