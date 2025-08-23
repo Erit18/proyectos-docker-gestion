@@ -161,11 +161,6 @@ docker-compose down -v
 
 # Eliminar Tuleap y TODOS sus datos
 docker-compose -f tuleap-docker-compose.yml down -v
-
-# Eliminar TODAS las aplicaciones y sus datos
-docker-compose -f openproject-docker-compose.yml down -v
-cd taiga-docker && docker-compose down -v
-docker-compose -f tuleap-docker-compose.yml down -v
 ```
 
 #### **¿Cuándo usar eliminación completa?**
@@ -208,6 +203,7 @@ docker-compose -f openproject-docker-compose.yml restart
 docker-compose restart
 
 # Tuleap
+
 docker-compose -f tuleap-docker-compose.yml restart
 ```
 
