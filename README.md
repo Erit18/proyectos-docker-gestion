@@ -124,11 +124,6 @@ docker-compose down
 
 # Detener Tuleap
 docker-compose -f tuleap-docker-compose.yml down
-
-# O detener todas de una vez
-docker-compose -f openproject-docker-compose.yml down
-cd taiga-docker && docker-compose down
-docker-compose -f tuleap-docker-compose.yml down
 ```
 
 #### **Para ENCENDER las aplicaciones:**
