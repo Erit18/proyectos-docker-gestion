@@ -1,0 +1,23 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de Docker
+*.env
+.env.local
+.env.production
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Carpetas de datos de Docker (se crean automáticamente)
+docker-data/
+data/
+
+# Archivos de configuración local
+config.local.yml
+docker-compose.override.yml
