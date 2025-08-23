@@ -10,9 +10,14 @@ Este proyecto contiene configuraciones Docker Compose para tres herramientas de 
 
 ## Requisitos Previos
 
-- Docker Desktop instalado y ejecutándose
-- Al menos 4GB de RAM disponible
-- Puertos disponibles: 8080, 9001, 8081, 8082
+### **⚠️ OBLIGATORIO - Instalar primero:**
+- **Docker Desktop** - Descargar desde [docker.com](https://docker.com/products/docker-desktop)
+- **Windows 10/11** (64-bit) o **macOS** (10.15+) o **Ubuntu** (18.04+)
+
+### **Requisitos del sistema:**
+- Al menos **4GB de RAM** disponible
+- **Puertos disponibles**: 8080, 9001, 8081, 8082
+- **Conexión a internet** para descargar las imágenes Docker
 
 ## 📥 **Cómo obtener este proyecto**
 
