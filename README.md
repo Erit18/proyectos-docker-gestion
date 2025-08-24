@@ -19,6 +19,11 @@ Este proyecto contiene configuraciones Docker Compose para tres herramientas de 
 - **Puertos disponibles**: 8080, 9000, 80
 - **Conexión a internet** para descargar las imágenes Docker
 
+### **⚠️ NOTA IMPORTANTE - Puerto 80 en Windows:**
+- **El puerto 80 puede estar ocupado** por IIS, Apache u otros servicios web
+- **Si tienes problemas**, puedes cambiar el puerto de ZenTao a 8080 o 8081
+- **Para verificar**: `netstat -ano | findstr :80`
+
 ## 📥 **Cómo obtener este proyecto**
 
 ### **Opción 1: Desde GitHub (Recomendado)**
@@ -96,12 +101,13 @@ docker-compose -f taiga-docker/docker-compose.yml -f taiga-docker/docker-compose
 docker-compose -f zentao-docker/docker-compose.yml up -d
 ```
 
-**Esperar 3-5 minutos** para que se inicialice completamente (la primera vez tarda más)
+**Esperar 2-4 minutos** para que se inicialice completamente (la primera vez tarda más)
 
 **Acceso:** Abrir tu navegador y ir a: http://localhost:80
 - Usuario por defecto: `admin`
 - Contraseña por defecto: `123456`
-- **Nota**: ZenTao incluye MySQL integrado y se configura automáticamente
+- **Nota**: ZenTao incluye MySQL integrado internamente y se configura automáticamente
+- **Base de datos**: Se crea automáticamente, no requiere configuración manual
 
 ## 🔄 **Ciclo de Vida de las Aplicaciones**
 
@@ -231,12 +237,13 @@ docker-compose -f zentao-docker/docker-compose.yml ps
 7. **Si es la primera vez**: Asegúrate de haber ejecutado las migraciones y creado el superusuario
 
 ### **Si ZenTao no carga:**
-1. **Primera vez**: Espera al menos 3-5 minutos para la inicialización completa
+1. **Primera vez**: Espera al menos 2-4 minutos para la inicialización completa
 2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
 3. Revisa los logs: `docker-compose -f zentao-docker/docker-compose.yml logs -f`
-4. Si ves errores de base de datos, espera más tiempo - ZenTao está configurando MySQL
-5. Asegúrate de que el puerto 80 no esté ocupado
-6. **Nota**: ZenTao incluye MySQL integrado y se configura automáticamente
+4. Si ves errores de base de datos, espera más tiempo - ZenTao está configurando MySQL internamente
+5. **IMPORTANTE**: Verifica que el puerto 80 no esté ocupado por IIS, Apache u otros servicios
+6. **Si el puerto 80 está ocupado**: Cambia el puerto en docker-compose.yml a 8080 o 8081
+7. **Nota**: ZenTao incluye MySQL integrado y se configura automáticamente
 
 ### **Si una aplicación no carga:**
 1. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
@@ -262,6 +269,7 @@ docker-compose -f zentao-docker/docker-compose.yml ps
 - Para desarrollo universitario, estas configuraciones son suficientes
 - **Ejecuta una aplicación a la vez** para evitar problemas de memoria
 - **Los usuarios y proyectos creados se mantienen** hasta que elimines explícitamente los volúmenes
+- **ZenTao es la aplicación más rápida** de instalar (2-4 minutos vs 5-15 minutos de las otras)
 
 ## URLs de Acceso Resumen
 

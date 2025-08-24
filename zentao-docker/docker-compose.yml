@@ -7,7 +7,6 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "3306:3306"  # Puerto MySQL para conexión remota
     networks:
       zentaonet:
         ipv4_address: 172.172.172.172
