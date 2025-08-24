@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  zentao:
+    image: easysoft/zentao:12.2.stable
+    container_name: zentao
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "3306:3306"  # Puerto MySQL para conexión remota
+    networks:
+      zentaonet:
+        ipv4_address: 172.172.172.172
+    volumes:
+      - /www/zentaopms:/www/zentaopms
+      - /www/mysqldata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    mac_address: "02:42:ac:11:00:00"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Instancia adicional de ZenTao (opcional)
+  zentao2:
+    image: easysoft/zentao:12.2.stable
+    container_name: zentao2
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      zentaonet:
+        ipv4_address: 172.172.172.173
+    volumes:
+      - /www/zentaopms2:/www/zentaopms
+      - /www/mysqldata2:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    mac_address: "02:42:ac:11:00:01"
+    depends_on:
+      - zentao
+    profiles:
+      - multiple
+
+networks:
+  zentaonet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.172.172.0/24
+
+volumes:
+  zentao_data:
+    driver: local
+  mysql_data:
+    driver: local

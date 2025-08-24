@@ -6,7 +6,7 @@ Este proyecto contiene configuraciones Docker Compose para tres herramientas de 
 
 1. **OpenProject** - Herramienta colaborativa con enfoque en metodologías ágiles
 2. **Taiga** - Plataforma ágil con tableros Kanban y gestión Scrum
-3. **Tuleap** - ALM con soporte para metodologías ágiles y tradicionales
+3. **ZenTao** - Sistema de gestión de proyectos y defectos con metodologías ágiles
 
 ## Requisitos Previos
 
@@ -16,7 +16,7 @@ Este proyecto contiene configuraciones Docker Compose para tres herramientas de 
 
 ### **Requisitos del sistema:**
 - Al menos **4GB de RAM** disponible
-- **Puertos disponibles**: 8080, 9001, 8081, 8082
+- **Puertos disponibles**: 8080, 9000, 80
 - **Conexión a internet** para descargar las imágenes Docker
 
 ## 📥 **Cómo obtener este proyecto**
@@ -90,19 +90,18 @@ docker-compose -f taiga-docker/docker-compose.yml -f taiga-docker/docker-compose
 - **IMPORTANTE**: La primera vez que accedas, Taiga puede tardar en cargar mientras termina la configuración inicial
 - **Nota**: Taiga usa backend y frontend integrados en el puerto 9000 con PostgreSQL
 
-#### **3. Tuleap**
+#### **3. ZenTao**
 
 ```bash
-docker-compose -f tuleap-docker-compose.yml up -d
+docker-compose -f zentao-docker/docker-compose.yml up -d
 ```
 
-**Esperar 8-12 minutos** para que se inicialice completamente (la primera vez tarda más)
+**Esperar 3-5 minutos** para que se inicialice completamente (la primera vez tarda más)
 
-**Acceso:** 
-- HTTP: http://localhost:9082
-- HTTPS: https://localhost:9081 (puede mostrar advertencia de certificado)
-- **Nota**: Tuleap incluye MySQL 8.0 y requiere más tiempo para configurar la base de datos
-- **Credenciales por defecto**: Se configuran automáticamente durante la primera ejecución
+**Acceso:** Abrir tu navegador y ir a: http://localhost:80
+- Usuario por defecto: `admin`
+- Contraseña por defecto: `123456`
+- **Nota**: ZenTao incluye MySQL integrado y se configura automáticamente
 
 ## 🔄 **Ciclo de Vida de las Aplicaciones**
 
@@ -122,8 +121,8 @@ docker-compose -f openproject-docker/openproject-docker-compose.yml down
 # Detener Taiga
 docker-compose -f taiga-docker/docker-compose.yml down
 
-# Detener Tuleap
-docker-compose -f tuleap-docker-compose.yml down
+# Detener ZenTao
+docker-compose -f zentao-docker/docker-compose.yml down
 ```
 
 #### **Para ENCENDER las aplicaciones:**
@@ -134,8 +133,8 @@ docker-compose -f openproject-docker/openproject-docker-compose.yml up -d
 # Levantar Taiga
 docker-compose -f taiga-docker/docker-compose.yml up -d
 
-# Levantar Tuleap
-docker-compose -f tuleap-docker-compose.yml up -d
+# Levantar ZenTao
+docker-compose -f zentao-docker/docker-compose.yml up -d
 ```
 
 #### **Después de encender:**
@@ -154,8 +153,8 @@ docker-compose -f openproject-docker/openproject-docker-compose.yml down -v
 # Eliminar Taiga y TODOS sus datos
 docker-compose -f taiga-docker/docker-compose.yml down -v
 
-# Eliminar Tuleap y TODOS sus datos
-docker-compose -f tuleap-docker-compose.yml down -v
+# Eliminar ZenTao y TODOS sus datos
+docker-compose -f zentao-docker/docker-compose.yml down -v
 ```
 
 #### **¿Cuándo usar eliminación completa?**
@@ -185,8 +184,8 @@ docker-compose -f openproject-docker/openproject-docker-compose.yml logs -f
 # Taiga
 docker-compose -f taiga-docker/docker-compose.yml logs -f
 
-# Tuleap
-docker-compose -f tuleap-docker-compose.yml logs -f
+# ZenTao
+docker-compose -f zentao-docker/docker-compose.yml logs -f
 ```
 
 ### **Reiniciar servicios (mantiene datos)**
@@ -197,9 +196,8 @@ docker-compose -f openproject-docker/openproject-docker-compose.yml restart
 # Taiga
 docker-compose -f taiga-docker/docker-compose.yml restart
 
-# Tuleap
-
-docker-compose -f tuleap-docker-compose.yml restart
+# ZenTao
+docker-compose -f zentao-docker/docker-compose.yml restart
 ```
 
 ### **Ver estado detallado**
@@ -210,8 +208,8 @@ docker-compose -f openproject-docker/openproject-docker-compose.yml ps
 # Taiga
 docker-compose -f taiga-docker/docker-compose.yml ps
 
-# Tuleap
-docker-compose -f tuleap-docker-compose.yml ps
+# ZenTao
+docker-compose -f zentao-docker/docker-compose.yml ps
 ```
 
 ## Solución de Problemas
@@ -232,13 +230,13 @@ docker-compose -f tuleap-docker-compose.yml ps
 6. **Nota**: Taiga usa backend y frontend integrados en el puerto 9000 con PostgreSQL
 7. **Si es la primera vez**: Asegúrate de haber ejecutado las migraciones y creado el superusuario
 
-### **Si Tuleap no carga:**
-1. **Primera vez**: Espera al menos 12-15 minutos para la inicialización completa
+### **Si ZenTao no carga:**
+1. **Primera vez**: Espera al menos 3-5 minutos para la inicialización completa
 2. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
-3. Revisa los logs: `docker-compose -f tuleap-docker-compose.yml logs -f`
-4. Si ves errores de base de datos, espera más tiempo - Tuleap está configurando MySQL 8.0
-5. Asegúrate de que los puertos 9081, 9082 y 9022 no estén ocupados
-6. **Nota**: Tuleap es la aplicación más compleja, incluye MySQL y requiere más tiempo para configurar todo
+3. Revisa los logs: `docker-compose -f zentao-docker/docker-compose.yml logs -f`
+4. Si ves errores de base de datos, espera más tiempo - ZenTao está configurando MySQL
+5. Asegúrate de que el puerto 80 no esté ocupado
+6. **Nota**: ZenTao incluye MySQL integrado y se configura automáticamente
 
 ### **Si una aplicación no carga:**
 1. Verifica que Docker Desktop esté ejecutándose (ícono de ballena en la barra de tareas)
@@ -269,7 +267,4 @@ docker-compose -f tuleap-docker-compose.yml ps
 
 - **OpenProject**: http://localhost:8080
 - **Taiga**: http://localhost:9000
-- **Tuleap**: 
-  - HTTP: http://localhost:9082
-  - HTTPS: https://localhost:9081 (puede mostrar advertencia de certificado)
-  - SSH: Puerto 9022 (para Git)
+- **ZenTao**: http://localhost:80
